@@ -19,7 +19,7 @@ public class ServiceDeleteAddresses {
 
 
         public void execute(ArrayList<Integer> idList){
-   //1234
+
             for (Integer id : idList) {
                 repositoryAddress.delete(id);
             }

@@ -191,15 +191,6 @@ public class RepositoryPerson implements Repository<Person> {
         Integer idMaxAddress = 1;
         Integer idMaxTelephone = 1;
 
-//        queryText += "SELECT MAX (id) + 1 as idMax\n" +
-//                "FROM\n" +
-//                "Persons;\n" +
-//                "SELECT MAX (id) + 1 as idMax\n" +
-//                "FROM\n" +
-//                "TelephonesOfPersons;\n"+
-//                "SELECT MAX (id) + 1 as idMax\n" +
-//                "FROM\n" +
-//                "Addresses;\n";
 
         ArrayList<ConnectionForDatabase.Query> queries = new ArrayList<>();
         queries.add(new ConnectionForDatabase.Query("SELECT MAX (id) + 1 as idMax\n" +
@@ -250,13 +241,6 @@ public class RepositoryPerson implements Repository<Person> {
             }
         }
 
-//        queryText += "INSERT \n" +
-//                "INTO\n" +
-//                "Persons (id, Name)\n" +
-//                "VALUES\n" +
-//                "(?, ?)\n" +
-//                "ON CONFLICT (id) DO UPDATE \n" +
-//                "SET Name = excluded.Name;\n";
 
         queryText +=
                 "merge into Persons \n" +
@@ -294,12 +278,7 @@ public class RepositoryPerson implements Repository<Person> {
             arrayListOfParameters.add(address.getId());
             arrayListOfParameters.add(address.getAddress());
 
-//            queryText += "INSERT \n" +
-//                    "INTO\n" +
-//                    "AddressesOfPersons (Person_id, Address_id)\n" +
-//                    "VALUES\n" +
-//                    "(?, ?)\n" +
-//                    "ON CONFLICT (Person_id, Address_id) DO NOTHING;\n";
+
             queryText +=
                     "merge into AddressesOfPersons\n" +
                             "using (VALUES (?,?)) as Source (Person_id, Address_id)\n" +
@@ -314,14 +293,7 @@ public class RepositoryPerson implements Repository<Person> {
         }
 
         for (TelephoneNumber telephoneNumber: person.getTelephoneNumbers()) {
-//            queryText += "INSERT \n" +
-//                    "INTO\n" +
-//                    "TelephonesOfPersons (id, person_id, telephone)\n" +
-//                    "VALUES\n" +
-//                    "(?, ?, ?)\n" +
-//                    "ON CONFLICT (id) DO UPDATE \n" +
-//                    "SET Telephone = excluded.Telephone,\n" +
-//                    "Person_id = excluded.Person_id;\n";
+
             queryText +=
                     "merge into TelephonesOfPersons \n" +
                             "using (VALUES (?,?,?)) as Source (id, telephone, Person_id)\n" +

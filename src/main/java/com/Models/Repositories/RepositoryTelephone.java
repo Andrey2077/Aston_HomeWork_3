@@ -96,13 +96,6 @@ public class RepositoryTelephone implements Repository<TelephoneNumber>{
 
         if (telephoneNumber.getId() == null) {
 
-            Integer idMaxAddress = 1;
-
-//            queryText += "SELECT MAX (id) + 1 as idMax\n" +
-//                    "FROM\n" +
-//                    "TelephonesOfPersons;\n" +
-//                    "SELECT id FROM Persons WHERE id = ?\n";
-
             arrayListOfParameters.add(telephoneNumber.getPerson().getId());
             ArrayList<ConnectionForDatabase.Query> queries = new ArrayList<>();
 
@@ -134,14 +127,6 @@ public class RepositoryTelephone implements Repository<TelephoneNumber>{
         }
 
         arrayListOfParameters.clear();
-//        queryText = "INSERT \n" +
-//                "INTO\n" +
-//                "TelephonesOfPersons (id, Telephone, Person_id)\n" +
-//                "VALUES\n" +
-//                "(?, ?, ?)\n" +
-//                "ON CONFLICT (id) DO UPDATE \n" +
-//                "SET Telephone = excluded.Telephone,\n" +
-//                " Person_id = excluded.Person_id\n;\n";
 
         queryText =
                 "merge into TelephonesOfPersons \n" +

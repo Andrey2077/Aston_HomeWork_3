@@ -101,13 +101,6 @@ public class RepositoryAddress implements  Repository<Address>{
             }
 
         }
-//        queryText = "INSERT \n" +
-//                "INTO\n" +
-//                "Addresses (id, Address)\n" +
-//                "VALUES\n" +
-//                "(?, ?)\n" +
-//                "ON CONFLICT (id) DO UPDATE \n" +
-//                "SET address = excluded.address;\n";
 
         queryText =
         "merge into Addresses \n" +
